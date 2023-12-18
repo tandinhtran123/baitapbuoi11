@@ -51,3 +51,31 @@ FROM pages a Left Join page_likes b
 ON a.page_id = b.page_id
 Where liked_date is NULL
 ORDER BY a.page_id ASC
+
+--mid-course test
+--bai 1
+select distinct replacement_cost, 
+min (replacement_cost)
+from film
+group by replacement_cost
+--bai 2
+Select
+case 
+when replacement_cost between 9.99 and 19.99 then 'low'
+when replacement_cost between 20.00 and 24.99 then 'medium'
+when replacement_cost between 25.00 and 29.99 then 'high'
+end as tier,
+count (*) as amount
+from film
+group by tier
+--bai 3
+select 
+a.film_id, a.title, a.length, b.category_id, a.description
+from film a left join film_category b
+on a.film_id = b.film_id
+group by a.film_id, a.title, a.length,b.category_id
+having description like '%Drama%' or description like '%Sports%'
+Order by a.length DESC
+--bai 4
+
+
