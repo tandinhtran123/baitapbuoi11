@@ -69,13 +69,26 @@ count (*) as amount
 from film
 group by tier
 --bai 3
-select 
-a.film_id, a.title, a.length, b.category_id, a.description
-from film a left join film_category b
-on a.film_id = b.film_id
-group by a.film_id, a.title, a.length,b.category_id
-having description like '%Drama%' or description like '%Sports%'
-Order by a.length DESC
+select c.title, c.length, a.name
+from category a join film_category b 
+on a.category_id=b.category_id 
+join film c 
+on b.film_id= c.film_id
+group by c.title, c.length, a.name
+having a.name = 'Drama' or a.name='Sports'
+order by c.length desc
 --bai 4
-
+select name, count(*) as the_amount_of_titles
+from category a join film_category b 
+on a.category_id = b.category_id
+group by name
+order by the_amount_of_titles desc
+--bai 5
+select a.actor_id,
+first_name ||' '|| last_name as actor_name,
+count (*) as amount_of_movies
+from actor a join film_actor b
+on a.actor_id = b.actor_id
+group by a.actor_id,first_name ||' '|| last_name
+order by amount_of_movies DESC
 
